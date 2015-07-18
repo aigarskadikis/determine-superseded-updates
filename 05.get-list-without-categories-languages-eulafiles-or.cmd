@@ -1,4 +1,5 @@
 @echo off
+set e=C:\Program Files (x86)\Notepad++\notepad++.exe
 set b=http://download.windowsupdate.com
 set f=microsoftupdate/v6/wsusscan/wsusscn2.cab
 set w=%temp%
@@ -11,15 +12,8 @@ if exist "%w%\u" rd "%w%\u" /Q /S
 7z x "%w%\u\package.cab" -o"%w%\u" > nul 2>&1
 sed "s/<Update /\n\n<Update /g" "%w%\u\package.xml" |^
 grep "SupersededBy" |^
-sed "s/^.* RevisionId=/RevisionId=/g" |^
-sed "s/RevisionNumber.*RevisionId/RevisionId/g" |^
-sed "s/IsLeaf.*<SupersededBy></SupersededBy /g" |^
-sed "s/ \/><\/SupersededBy>.*$//g" |^
-sed "s/ \/><Revision//g" |^
-sed "s/RevisionId=\| Revision\|Id=\|\d034//g" > "%userprofile%\desktop\supersededby.log"
-notepad "%userprofile%\desktop\supersededby.log"
-pause
-
+sed "s/<Categories>.*<\/Categories>\|<Languages>.*<\/Languages>\|<EulaFiles>.*<\/EulaFiles>\|<Or>.*<\/Or>//g" > "%userprofile%\desktop\supersededby.log"
+"%e%" "%userprofile%\desktop\supersededby.log"
 
 
 
