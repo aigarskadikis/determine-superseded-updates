@@ -16,7 +16,9 @@ sed "s/RevisionNumber.*RevisionId/RevisionId/g" |^
 sed "s/IsLeaf.*<SupersededBy></SupersededBy /g" |^
 sed "s/ \/><\/SupersededBy>.*$//g" |^
 sed "s/ \/><Revision//g" |^
-sed "s/RevisionId=\| Revision\|Id=\|\d034//g" > "%userprofile%\desktop\supersededby.log"
+sed "s/RevisionId=\| Revision\|Id=\|\d034//g" |^
+sed "s/DeploymentAction=.*><Revision/SupersededBy/g" |^
+sed "s/IsBundle=.*><Revision/SupersededBy/g" > "%userprofile%\desktop\supersededby.log"
 notepad "%userprofile%\desktop\supersededby.log"
 pause
 
